@@ -5,6 +5,8 @@ function App() {
 const [hakusana, setHakusana] = useState('')
 const [rodut, setRodut] = useState([])
 const [valittuRotu, setValittuRotu] = useState(null)
+const [suosikit, setSuosikit] = useState([])
+const [naytaSuosikit, setNaytaSuosikit] = useState(false)
 const suodatetutRodut = rodut.filter((rotu) =>
   rotu.attributes.name.toLowerCase().includes(hakusana.toLowerCase())
 )
@@ -21,14 +23,33 @@ useEffect(() => {
 
 {/*TOINEN SCREEN:Valitun koirarodun näyttäminen*/}
 if (valittuRotu !== null) {
-  console.log(valittuRotu)
+  const onkoSuosikki = suosikit.some((rotu) => rotu.id === valittuRotu.id)
   return (
     <section>
       <h1>{valittuRotu.attributes.name}</h1>
+      <button onClick={() => {
+        if (suosikit.some((rotu) => rotu.id === valittuRotu.id)) {
+          setSuosikit(suosikit.filter((rotu) => rotu.id !== valittuRotu.id))
+        } else {setSuosikit([...suosikit, valittuRotu])}
+      }}>
+        {onkoSuosikki ? '★' : '☆' }</button>
+
+      {/*Etusivu-nappi ja vertailusivu-nappi*/}
+      <button onClick={() => {
+                          setValittuRotu(null)
+                          setNaytaSuosikit(false)}}>
+                          Etusivu 
+                          </button>
+      <button onClick={() => {
+                          setNaytaSuosikit(true)
+                          setValittuRotu(null)}}>
+                          Vertailu
+                          </button>
       <img 
                 src={valittuRotu.attributes.images[0].thumb}
                 alt={valittuRotu.attributes.name}
               />
+      {/*Näytetään valitun koirarodun ominaisuudet*/}        
       <p> Elinikä: {valittuRotu.attributes.life.min} - {valittuRotu.attributes.life.max} vuotta </p>
       <p> Uroksen paino: {valittuRotu.attributes.male_weight.min} - {valittuRotu.attributes.male_weight.max} kg </p>
       <p> Nartun paino: {valittuRotu.attributes.female_weight.min} - {valittuRotu.attributes.female_weight.max} kg </p>
@@ -40,9 +61,51 @@ if (valittuRotu !== null) {
       <p> Turkin tyyppi: {valittuRotu.attributes.coat.type}</p>
       <p> Onko rotu hypoallergeeninen: {valittuRotu.attributes.hypoallergenic ? 'Kyllä' : 'Ei'}</p>
       <p> Muuta: {valittuRotu.attributes.description}</p>
-      <button onClick={() => setValittuRotu(null)}>Takaisin</button>
       </section>)}
 
+{/*KOLMAS SCREEN: Suosikkien listaus ja vertailu*/}
+if (naytaSuosikit) {
+  return (
+    <section>
+      <h1>Suosikki rodut</h1>
+      <button onClick={() => setNaytaSuosikit(false)}>Etusivu</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Rotu</th>
+            <th>Elinikä</th>
+            <th>Uroksen paino</th>
+            <th>Nartun paino</th>
+            <th>Uroksen säkäkorkeus</th>
+            <th>Nartun säkäkorkeus</th>
+            <th>Hypoallergeeninen</th>
+          </tr>
+        </thead>
+        <tbody>
+          {suosikit.map((rotu) => (
+            <tr key={rotu.id}>
+              <td className="rotu-solu">
+                <img 
+                  src={rotu.attributes.images[0].thumb}
+                  alt={rotu.attributes.name}
+                  className="suosikki-kuva"
+                />
+                <span>{rotu.attributes.name}</span>
+              </td>
+              <td>{rotu.attributes.life.min} - {rotu.attributes.life.max} vuotta</td>
+              <td>{rotu.attributes.male_weight.min} - {rotu.attributes.male_weight.max} kg</td>
+              <td>{rotu.attributes.female_weight.min} - {rotu.attributes.female_weight.max} kg</td>
+              <td>{rotu.attributes.male_height.min} - {rotu.attributes.male_height.max} cm</td>
+              <td>{rotu.attributes.female_height.min} - {rotu.attributes.female_height.max} cm</td>
+              <td>{rotu.attributes.hypoallergenic ? 'Kyllä' : 'Ei'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  )
+}
+{/*ENSIMMÄINEN SCREEN: Hakutulosten näyttäminen*/}
   return (
     <>
       <section id="center">
@@ -52,6 +115,9 @@ if (valittuRotu !== null) {
             Hae koirarotuja, valitse suosikkisi ja vertaile niiden ominaisuuksia.
           </p>
         </div>
+        <button onClick={() => setNaytaSuosikit(true)}>
+          Näytä suosikit
+          </button>
         {/*hakukenttä*/}
         <input          
           type="text"
