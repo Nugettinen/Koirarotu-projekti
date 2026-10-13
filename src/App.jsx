@@ -4,6 +4,7 @@ import './App.css'
 function App() {
 const [hakusana, setHakusana] = useState('')
 const [rodut, setRodut] = useState([])
+const [valittuRotu, setValittuRotu] = useState(null)
 const suodatetutRodut = rodut.filter((rotu) =>
   rotu.attributes.name.toLowerCase().includes(hakusana.toLowerCase())
 )
@@ -17,6 +18,17 @@ useEffect(() => {
   }
   haeRodut()
 }, [])
+
+{/*TOINEN SCREEN:Valitun koirarodun näyttäminen*/}
+if (valittuRotu !== null) {
+  console.log(valittuRotu)
+  return (
+    <section>
+      <h1>{valittuRotu.attributes.name}</h1>
+      <img 
+                src={valittuRotu.attributes.images[0].thumb}
+              />
+      </section>)}
 
   return (
     <>
@@ -40,7 +52,9 @@ useEffect(() => {
         {/*hakutulokset*/}
         <ul className="rotu-taulukko">
           {suodatetutRodut.map((rotu) => (
-            <li key={rotu.id}>
+            <li key={rotu.id}
+              onClick={() => setValittuRotu(rotu)}
+            >
               <img 
                 src={rotu.attributes.images[0].thumb}
                 alt={rotu.attributes.name}
