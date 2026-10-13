@@ -27,7 +27,20 @@ if (valittuRotu !== null) {
       <h1>{valittuRotu.attributes.name}</h1>
       <img 
                 src={valittuRotu.attributes.images[0].thumb}
+                alt={valittuRotu.attributes.name}
               />
+      <p> Elinikä: {valittuRotu.attributes.life.min} - {valittuRotu.attributes.life.max} vuotta </p>
+      <p> Uroksen paino: {valittuRotu.attributes.male_weight.min} - {valittuRotu.attributes.male_weight.max} kg </p>
+      <p> Nartun paino: {valittuRotu.attributes.female_weight.min} - {valittuRotu.attributes.female_weight.max} kg </p>
+      <p> Uroksen säkäkorkeus: {valittuRotu.attributes.male_height.min} - {valittuRotu.attributes.male_height.max} cm </p>
+      <p> Nartun säkäkorkeus: {valittuRotu.attributes.female_height.min} - {valittuRotu.attributes.female_height.max} cm </p>
+      <p> Alkuperä: {valittuRotu.attributes.origin.country}, {valittuRotu.attributes.origin.region} {valittuRotu.attributes.origin.era}</p>
+      <p> Turkin väri: {valittuRotu.attributes.coat.colors.join(', ')} </p>
+      <p> Turkin pituus: {valittuRotu.attributes.coat.length}</p> 
+      <p> Turkin tyyppi: {valittuRotu.attributes.coat.type}</p>
+      <p> Onko rotu hypoallergeeninen: {valittuRotu.attributes.hypoallergenic ? 'Kyllä' : 'Ei'}</p>
+      <p> Muuta: {valittuRotu.attributes.description}</p>
+      <button onClick={() => setValittuRotu(null)}>Takaisin</button>
       </section>)}
 
   return (
