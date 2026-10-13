@@ -81,9 +81,9 @@ if (naytaSuosikit) {
             <th>Hypoallergeeninen</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="suosikki-taulukko">
           {suosikit.map((rotu) => (
-            <tr key={rotu.id}>
+            <tr key={rotu.id} onClick={() => setValittuRotu(rotu)}>
               <td className="rotu-solu">
                 <img 
                   src={rotu.attributes.images[0].thumb}

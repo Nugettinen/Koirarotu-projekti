@@ -44,3 +44,24 @@
   min-width: 0;
   overflow-wrap: anywhere;
 }
+.suosikki-taulukko td {
+  border-top: 3px dashed lightgray;
+  border-bottom: 3px dashed lightgray;
+  padding: 5px;
+}
+
+.suosikki-taulukko td:first-child {
+  border-left: 3px dashed lightgray;
+  border-radius: 5px 0 0 5px;
+}
+
+.suosikki-taulukko td:last-child {
+  border-right: 3px dashed lightgray;
+  border-radius: 0 5px 5px 0;
+}
+.suosikki-taulukko tr:hover td {
+  border-color: black;
+}
+.suosikki-taulukko {
+  border-collapse: separate;
+}
