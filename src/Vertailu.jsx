@@ -1,0 +1,51 @@
+function Vertailu({ virhe, suosikit, setValittuRotu, setNaytaSuosikit }) {
+
+    return (
+            <section>
+            {virhe && <p>{virhe}</p>}
+            <h1>Suosikki rodut</h1>
+            <button onClick={() => setNaytaSuosikit(false)}>Etusivu</button>
+            {suosikit.length === 0 ? 
+            (<p>Ei suosikkirotuja valittuna</p>) 
+            :(
+            <table>
+                <thead className="suosikki-otsikko">
+                <tr>
+                    <th>Rotu</th>
+                    <th>Elinikä</th>
+                    <th>Uroksen<br />paino</th>
+                    <th>Nartun<br />paino</th>
+                    <th>Uroksen<br />säkäkorkeus</th>
+                    <th>Nartun<br />säkäkorkeus</th>
+                    <th>Hypo-<br />allergeeninen</th>
+                </tr>
+                </thead>
+                <tbody className="suosikki-taulukko">
+                {suosikit.map((rotu) => (
+                    <tr key={rotu.id} onClick={() => setValittuRotu(rotu)}>
+                    <td className="rotu-solu">
+                        <img 
+                        src={rotu.attributes.images[0].thumb}
+                        alt={rotu.attributes.name}
+                        className="suosikki-kuva"
+                        />
+                        <span>{rotu.attributes.name}</span>
+                    </td>
+                    <td>{rotu.attributes.life.min} - {rotu.attributes.life.max} vuotta</td>
+                    <td>{rotu.attributes.male_weight.min} - {rotu.attributes.male_weight.max} kg</td>
+                    <td>{rotu.attributes.female_weight.min} - {rotu.attributes.female_weight.max} kg</td>
+                    <td>{rotu.attributes.male_height.min} - {rotu.attributes.male_height.max} cm</td>
+                    <td>{rotu.attributes.female_height.min} - {rotu.attributes.female_height.max} cm</td>
+                    <td>{rotu.attributes.hypoallergenic ? 'Kyllä' : 'Ei'}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+            )}
+            </section>
+
+
+  )
+}
+
+export default Vertailu
