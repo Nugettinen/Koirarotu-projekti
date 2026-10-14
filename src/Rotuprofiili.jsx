@@ -1,4 +1,4 @@
-function Rotuprofiili({valittuRotu,virhe,suosikit,setSuosikit,setValittuRotu,setNaytaSuosikit}) 
+function Rotuprofiili({valittuRotu,virhe,suosikit,setSuosikit,onEtusivu,onVertailu}) 
 {
   const onkoSuosikki = suosikit.some((rotu) => rotu.id === valittuRotu.id)
 
@@ -15,13 +15,11 @@ function Rotuprofiili({valittuRotu,virhe,suosikit,setSuosikit,setValittuRotu,set
 
       {/*Etusivu-nappi ja vertailusivu-nappi*/}
       <button onClick={() => {
-                          setValittuRotu(null)
-                          setNaytaSuosikit(false)}}>
+                        onEtusivu()}}>
                           Etusivu 
                           </button>
       <button onClick={() => {
-                          setNaytaSuosikit(true)
-                          setValittuRotu(null)}}>
+                        onVertailu()}}>
                           Vertailu
                           </button>
       <img 

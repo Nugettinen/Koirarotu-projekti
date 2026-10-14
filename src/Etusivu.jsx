@@ -1,4 +1,4 @@
-function Etusivu({ virhe, hakusana, setHakusana, suodatetutRodut, setValittuRotu, setNaytaSuosikit }) {
+function Etusivu({ virhe, hakusana, setHakusana, suodatetutRodut, onValitseRotu, onAvaaSuosikit }) {
 
 return (
     <>
@@ -10,7 +10,7 @@ return (
             Hae koirarotuja, valitse suosikkisi ja vertaile niiden ominaisuuksia.
           </p>
         </div>
-        <button onClick={() => setNaytaSuosikit(true)}>
+        <button onClick={() => onAvaaSuosikit()}>
           Näytä suosikit
           </button>
         {/*hakukenttä*/}
@@ -27,7 +27,7 @@ return (
         <ul className="rotu-taulukko">
           {suodatetutRodut.map((rotu) => (
             <li key={rotu.id}
-              onClick={() => setValittuRotu(rotu)}
+              onClick={() => onValitseRotu(rotu)}
             >
               <img 
                 src={rotu.attributes.images[0].thumb}

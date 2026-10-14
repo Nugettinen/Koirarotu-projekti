@@ -1,10 +1,10 @@
-function Vertailu({ virhe, suosikit, setValittuRotu, setNaytaSuosikit }) {
+function Vertailu({ virhe, suosikit, onEtusivu, onValitseRotu }) {
 
     return (
             <section>
             {virhe && <p>{virhe}</p>}
             <h1>Suosikki rodut</h1>
-            <button onClick={() => setNaytaSuosikit(false)}>Etusivu</button>
+            <button onClick={() => onEtusivu()}>Etusivu</button>
             {suosikit.length === 0 ? 
             (<p>Ei suosikkirotuja valittuna</p>) 
             :(
@@ -22,7 +22,7 @@ function Vertailu({ virhe, suosikit, setValittuRotu, setNaytaSuosikit }) {
                 </thead>
                 <tbody className="suosikki-taulukko">
                 {suosikit.map((rotu) => (
-                    <tr key={rotu.id} onClick={() => setValittuRotu(rotu)}>
+                    <tr key={rotu.id} onClick={() => onValitseRotu(rotu)}>
                     <td className="rotu-solu">
                         <img 
                         src={rotu.attributes.images[0].thumb}
