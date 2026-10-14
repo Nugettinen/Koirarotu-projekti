@@ -62,6 +62,12 @@
 .suosikki-taulukko tr:hover td {
   border-color: black;
 }
-.suosikki-taulukko {
+.suosikki-otsikko th{
   border-collapse: separate;
+  border-spacing: 0 12px;
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  padding: 20px;
+  overflow-wrap: break-word;
 }

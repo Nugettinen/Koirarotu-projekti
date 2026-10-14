@@ -69,16 +69,19 @@ if (naytaSuosikit) {
     <section>
       <h1>Suosikki rodut</h1>
       <button onClick={() => setNaytaSuosikit(false)}>Etusivu</button>
+      {suosikit.length === 0 ? 
+      (<p>Ei suosikkirotuja valittuna</p>) 
+      :(
       <table>
-        <thead>
+        <thead className="suosikki-otsikko">
           <tr>
             <th>Rotu</th>
             <th>Elinikä</th>
-            <th>Uroksen paino</th>
-            <th>Nartun paino</th>
-            <th>Uroksen säkäkorkeus</th>
-            <th>Nartun säkäkorkeus</th>
-            <th>Hypoallergeeninen</th>
+            <th>Uroksen<br />paino</th>
+            <th>Nartun<br />paino</th>
+            <th>Uroksen<br />säkäkorkeus</th>
+            <th>Nartun<br />säkäkorkeus</th>
+            <th>Hypo-<br />allergeeninen</th>
           </tr>
         </thead>
         <tbody className="suosikki-taulukko">
@@ -102,6 +105,7 @@ if (naytaSuosikit) {
           ))}
         </tbody>
       </table>
+      )}
     </section>
   )
 }
