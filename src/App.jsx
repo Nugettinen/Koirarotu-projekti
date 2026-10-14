@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+const [virhe, setVirhe] = useState(null)
 const [hakusana, setHakusana] = useState('')
 const [rodut, setRodut] = useState([])
 const [valittuRotu, setValittuRotu] = useState(null)
@@ -13,10 +14,15 @@ const suodatetutRodut = rodut.filter((rotu) =>
 {/*APIn liittäminen*/}
 useEffect(() => {
   async function haeRodut() {
+    try {
     const vastaus = await fetch('https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=1000')
+    if (!vastaus.ok) {
+      throw new Error('API-pyyntö epäonnistui')}
     const data = await vastaus.json()
-    console.log(data.data[0])
     setRodut(data.data)
+  } catch (error) {
+    setVirhe('Virhe tietojen lataamisessa')
+  }
   }
   haeRodut()
 }, [])
@@ -26,6 +32,7 @@ if (valittuRotu !== null) {
   const onkoSuosikki = suosikit.some((rotu) => rotu.id === valittuRotu.id)
   return (
     <section>
+      {virhe && <p>{virhe}</p>}
       <h1>{valittuRotu.attributes.name}</h1>
       <button onClick={() => {
         if (suosikit.some((rotu) => rotu.id === valittuRotu.id)) {
@@ -67,6 +74,7 @@ if (valittuRotu !== null) {
 if (naytaSuosikit) {
   return (
     <section>
+      {virhe && <p>{virhe}</p>}
       <h1>Suosikki rodut</h1>
       <button onClick={() => setNaytaSuosikit(false)}>Etusivu</button>
       {suosikit.length === 0 ? 
@@ -112,6 +120,7 @@ if (naytaSuosikit) {
 {/*ENSIMMÄINEN SCREEN: Hakutulosten näyttäminen*/}
   return (
     <>
+    {virhe && <p>{virhe}</p>}
       <section id="center">
         <div>
           <h1>Koirarotuhaku</h1>
