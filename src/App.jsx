@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import './App.css'
 import Etusivu from './Etusivu.jsx'
 import Rotuprofiili from './Rotuprofiili.jsx'
 import Vertailu from './Vertailu.jsx'
 
 function App() {
+const navigate = useNavigate()
 const [virhe, setVirhe] = useState(null)
 const [hakusana, setHakusana] = useState('')
 const [rodut, setRodut] = useState([])
-const [valittuRotu, setValittuRotu] = useState(null)
 const [suosikit, setSuosikit] = useState([])
-const [naytaSuosikit, setNaytaSuosikit] = useState(false)
-const suodatetutRodut = rodut.filter((rotu) =>
-  rotu.attributes.name.toLowerCase().includes(hakusana.toLowerCase())
-)
+const suodatetutRodut = rodut.filter((rotu) => rotu.attributes.name.toLowerCase().includes(hakusana.toLowerCase()))
 
 {/*APIn liittäminen*/}
 useEffect(() => {
@@ -32,43 +30,66 @@ useEffect(() => {
 }, [])
 
 {/*TOINEN SCREEN:Valitun koirarodun näyttäminen*/}
-if (valittuRotu !== null) {
+return (
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <Etusivu
+          virhe={virhe}
+          hakusana={hakusana}
+          setHakusana={setHakusana}
+          suodatetutRodut={suodatetutRodut}
+          onValitseRotu={(rotu) => navigate(`/rotu/${rotu.id}`)}
+          onAvaaSuosikit={() => navigate('/suosikit')}
+        />
+      }
+    />
+    <Route
+      path="/rotu/:id"
+      element={
+        <RotuReitti
+          rodut={rodut}
+          virhe={virhe}
+          suosikit={suosikit}
+          setSuosikit={setSuosikit}
+          onEtusivu={() => navigate('/')}
+          onVertailu={() => navigate('/suosikit')}
+        />
+      }
+    />
+        <Route
+      path="/suosikit"
+      element={
+        <Vertailu
+          virhe={virhe}
+          suosikit={suosikit}
+          onEtusivu={() => navigate('/')}
+          onValitseRotu={(rotu) => navigate(`/rotu/${rotu.id}`)}
+        />
+      }
+    />
+  </Routes>
+)
+}
+
+
+function RotuReitti({ rodut, virhe, suosikit, setSuosikit, onEtusivu, onVertailu }) {
+  const { id } = useParams()
+  const valittuRotu = rodut.find((rotu) => rotu.id === id)
+
+  if (!valittuRotu) {
+    return <p>{virhe || 'Ladataan rodun tietoja...'}</p>
+  }
   return (
-    <Rotuprofiili 
+    <Rotuprofiili
       valittuRotu={valittuRotu}
       virhe={virhe}
       suosikit={suosikit}
       setSuosikit={setSuosikit}
-      setValittuRotu={setValittuRotu}
-      setNaytaSuosikit={setNaytaSuosikit}
+      onEtusivu={onEtusivu}
+      onVertailu={onVertailu}
     />
   )
 }
-
-{/*KOLMAS SCREEN: Suosikkien listaus ja vertailu*/}
-if (naytaSuosikit) {
-  return (
-    <Vertailu 
-      virhe={virhe}
-      suosikit={suosikit}
-      setValittuRotu={setValittuRotu}
-      setNaytaSuosikit={setNaytaSuosikit}
-    />
-  )
-}
-      
-
-{/*ENSIMMÄINEN SCREEN: Etusivu, jossa hakukenttä ja hakutulokset*/}
-return (
-  <Etusivu 
-    virhe={virhe}
-    hakusana={hakusana}
-    setHakusana={setHakusana}
-    suodatetutRodut={suodatetutRodut}
-    setValittuRotu={setValittuRotu}
-    setNaytaSuosikit={setNaytaSuosikit}
-  />
-)
-} 
-
 export default App
