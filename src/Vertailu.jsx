@@ -8,6 +8,7 @@ function Vertailu({ virhe, suosikit, onEtusivu, onValitseRotu }) {
             {suosikit.length === 0 ? 
             (<p>Ei suosikkirotuja valittuna</p>) 
             :(
+            <div className="table-container">
             <table>
                 <thead className="suosikki-otsikko">
                 <tr>
@@ -41,6 +42,7 @@ function Vertailu({ virhe, suosikit, onEtusivu, onValitseRotu }) {
                 ))}
                 </tbody>
             </table>
+            </div>
             )}
             </section>
 

@@ -1,27 +1,42 @@
 .rotu-taulukko {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   font-size: 12px;
   list-style: none;
+  padding: 0;
+  margin-inline: auto;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .rotu-taulukko img {
-  width: 100%;
-  height: 160px;
+  width: clamp(60px, 10vw, 160px);
+  height: clamp(60px, 10vw, 160px);
   object-fit: cover;
   border-radius: 5px;
 }
-.rotu-taulukko h3 {
-  margin: 0 0 5px;
-}
 .rotu-taulukko li {
+  flex: 0 1 calc((100% - 50px) / 5);
+  min-width: 0;
   border: 2px solid lightgray;
   border-radius: 5px;
   padding: 10px;
   text-align: center;
 }
+@media (max-width: 600px) {
+  .rotu-taulukko li {
+    flex-basis: calc((100% - 30px) / 3);
+    padding: 5px;
+  }
+}
+
 .rotu-taulukko li:hover {
   border-color: black;
+}
+.rotu-taulukko li h3 {
+  font-size: clamp(12px, 1.5vw, 18px);
+  margin: 10px 0 10px;
 }
 .suosikki-kuva {
   width: 60px;
