@@ -127,3 +127,7 @@ overflow-wrap: break-word;
      min-width: 0;
   }
 }
+.table-container table {
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
