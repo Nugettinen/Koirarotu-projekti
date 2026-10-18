@@ -5,7 +5,7 @@ return (
     {virhe && <p>{virhe}</p>}
       <section id="center" className="container py-4">
         <div>
-          <h1>Koirarotuhaku</h1>
+          <h1>Koirarotu-haku</h1>
           <p>
             Hae koirarotuja, valitse suosikkisi ja vertaile niiden ominaisuuksia.
           </p>

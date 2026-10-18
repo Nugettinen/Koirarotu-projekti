@@ -1,16 +1,30 @@
-# React + Vite
+# Projektin kuvaus:
+Koirarotu-haku on verkkosovellus.
+Sovelluksella voi hakea koirarotuja nimellä ja tutustua rodun tarkempiin tietoihin sekä ominaisuuksiin. Sovelluksessa saa merkittyä omat suosikkirodut ja sen jälkeen vertailla suosikeiksi tallennettujen rotujen keskeisimpiä ominaisuuksia toisiinsa.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Mitä ominaisuuksia sovelluksella on?
+- koirarotujen haku nimellä tai nimen osalla
+- jokaisella koirarodulla on oma profiili
+- rotuprofiilissa näytetään rodun tarkat tiedot ja ominaisuudet
+- koirarodun lisääminen tai poistaminen suosikeista
+- suosikeiksi valittujen rotujen vertailu taulukossa
+- siirtyminen painikkeiden avulla eri näkymien välillä
 
-Currently, two official plugins are available:
+# Mitä teknologioita käytetty?
+- HTML
+- CSS
+- JavaScript
+- React
+- Vite
+- Bootstrap
+- React Router
+- ulkoinen rajapinta: Dog API
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Miten sovellus käynnistetään?
+1. tietokoneelle tulee ollaa asennettu Node.js ja npm
+2. lataa projektin lähdekoodi tietokoneelle
+3. avaa komentorivi projektin juurikansiossa, jossa package.json sijaitsee
+4. asenna projektin riippuvuudet komennolla: "npm install"
+5. käynnistä kehityspalvelin komennolla: "npm run dev"
+6. avaa komentorivin antama osoite selaimessa
+    
