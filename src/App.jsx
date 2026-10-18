@@ -10,6 +10,7 @@ const navigate = useNavigate()
 const [virhe, setVirhe] = useState(null)
 const [hakusana, setHakusana] = useState('')
 const [rodut, setRodut] = useState([])
+const [lataa, setLataa] = useState(true)
 const [suosikit, setSuosikit] = useState([])
 const suodatetutRodut = rodut.filter((rotu) => rotu.attributes.name.toLowerCase().includes(hakusana.toLowerCase()))
 
@@ -25,6 +26,8 @@ useEffect(() => {
   } catch (error) {
     setVirhe('Virhe tietojen lataamisessa')
   }
+    finally {
+      setLataa(false)}
   }
   haeRodut()
 }, [])
@@ -51,6 +54,7 @@ return (
         <RotuReitti
           rodut={rodut}
           virhe={virhe}
+          lataa={lataa}
           suosikit={suosikit}
           setSuosikit={setSuosikit}
           onEtusivu={() => navigate('/')}
@@ -74,13 +78,20 @@ return (
 }
 
 
-function RotuReitti({ rodut, virhe, suosikit, setSuosikit, onEtusivu, onVertailu }) {
+function RotuReitti({ rodut, virhe, lataa, suosikit, setSuosikit, onEtusivu, onVertailu }) {
   const { id } = useParams()
   const valittuRotu = rodut.find((rotu) => rotu.id === id)
 
   if (!valittuRotu) {
-    return <p>{virhe || 'Ladataan rodun tietoja...'}</p>
+    if (virhe) {
+      return <p> {virhe}</p>
+    }
+    if (lataa) {
+    return <p>Ladataan rodun tietoja...</p>
+    }
+    return <p>Rotua ei löytynyt.</p>
   }
+
   return (
     <Rotuprofiili
       valittuRotu={valittuRotu}
