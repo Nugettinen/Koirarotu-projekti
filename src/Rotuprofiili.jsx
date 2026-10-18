@@ -3,11 +3,12 @@ function Rotuprofiili({valittuRotu,virhe,suosikit,setSuosikit,onEtusivu,onVertai
   const onkoSuosikki = suosikit.some((rotu) => rotu.id === valittuRotu.id)
 
   return (
-    <section className="rotu-profiili">
+    <section className="container py-4 rotu-profiili" >
       {virhe && <p>{virhe}</p>}
       <h1 className="rotu-profiili-otsikko">
         {valittuRotu.attributes.name}</h1>
-      <button className="rotuprofiili-nappi" onClick={() => {
+      <div className="d-flex justify-content-center gap-2">
+      <button className="btn btn-outline-secondary rotuprofiili-nappi" onClick={() => {
         if (suosikit.some((rotu) => rotu.id === valittuRotu.id)) {
           setSuosikit(suosikit.filter((rotu) => rotu.id !== valittuRotu.id))
         } else {setSuosikit([...suosikit, valittuRotu])}
@@ -15,14 +16,15 @@ function Rotuprofiili({valittuRotu,virhe,suosikit,setSuosikit,onEtusivu,onVertai
         {onkoSuosikki ? '★' : '☆' }</button>
 
       {/*Etusivu-nappi ja vertailusivu-nappi*/}
-      <button className="rotuprofiili-nappi" onClick={() => {
+      <button className="btn btn-outline-secondary rotuprofiili-nappi" onClick={() => {
                         onEtusivu()}}>
                           Etusivu 
                           </button>
-      <button className="rotuprofiili-nappi" onClick={() => {
+      <button className="btn btn-outline-secondary rotuprofiili-nappi" onClick={() => {
                         onVertailu()}}>
                           Vertailu
                           </button>
+      </div>                    
       <img 
                 src={valittuRotu.attributes.images[0].thumb}
                 alt={valittuRotu.attributes.name}

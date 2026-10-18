@@ -3,18 +3,20 @@ function Etusivu({ virhe, hakusana, setHakusana, suodatetutRodut, onValitseRotu,
 return (
     <>
     {virhe && <p>{virhe}</p>}
-      <section id="center">
+      <section id="center" className="container py-4">
         <div>
           <h1>Koirarotuhaku</h1>
           <p>
             Hae koirarotuja, valitse suosikkisi ja vertaile niiden ominaisuuksia.
           </p>
         </div>
-        <button onClick={() => onAvaaSuosikit()}>
+        <button className="btn btn-outline-secondary mb-3" 
+        onClick={() => onAvaaSuosikit()}>
           Näytä suosikit
           </button>
         {/*hakukenttä*/}
-        <input          
+        <input 
+          className="form-control mb-3"         
           type="text"
           placeholder="Hae koirarotua..."
           value={hakusana}

@@ -1,15 +1,18 @@
 function Vertailu({ virhe, suosikit, onEtusivu, onValitseRotu }) {
 
     return (
-            <section>
+            <section className="container py-4">
             {virhe && <p>{virhe}</p>}
             <h1>Suosikki rodut</h1>
-            <button className="rotuprofiili-nappi" onClick={() => onEtusivu()}>Etusivu</button>
+            <p>
+            Vertaile suosikkirotujesi keskeisiä ominaisuuksia.
+            </p>
+            <button className="btn btn-outline-secondary rotuprofiili-nappi" onClick={() => onEtusivu()}>Etusivu</button>
             {suosikit.length === 0 ? 
             (<p>Ei suosikkirotuja valittuna</p>) 
             :(
             <div className="table-container">
-            <table>
+            <table className="table table-striped">
                 <thead className="suosikki-otsikko">
                 <tr>
                     <th>Rotu</th>
